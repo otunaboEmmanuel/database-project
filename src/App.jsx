@@ -5,6 +5,7 @@ import Categories from "./pages/Categories"
 import Sales from "./pages/Sales"
 import Products from "./pages/Products"
 import Reports from "./pages/SalesReport"
+import Login from "./pages/Login"
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
           <Route path='/sales' element={<Sales />} />
           <Route path='/products' element={<Products />} />
           <Route path='/reports' element={<Reports />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </Router>
     </>
