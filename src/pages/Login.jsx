@@ -109,7 +109,7 @@ const Login = () => {
                             >
                                 Log in
                             </button>
-                            <h3 className="text-black">Forgot Password?</h3>
+                            <h3 className="text-blue-900 hover:text-gray-600 cursor-pointer">Forgot Password?</h3>
                         </div>
 
                     </form>
