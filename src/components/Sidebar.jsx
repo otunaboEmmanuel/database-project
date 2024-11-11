@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Logo from "../assets/gadgetify-inventory-system-high-resolution-logo-transparent.png";
+import Logo from "../assets/inventory-logo.svg";
 import HomeIcon from '@mui/icons-material/Home';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import CategoryIcon from '@mui/icons-material/Category';
@@ -12,7 +12,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 const Sidebar = () => {
     // Pairing navItems with their corresponding icons
     const navItems = [
-        { name: "Dashboard", icon: <HomeIcon />, link: "/" },
+        { name: "Dashboard", icon: <HomeIcon />, link: "/dashboard" },
         { name: "User  Management", icon: <ManageAccountsIcon />, link: "/management" },
         { name: "Categories", icon: <CategoryIcon />, link: "/categories" },
         { name: "Products", icon: <ShoppingCartIcon />, link: "/products" },
@@ -22,7 +22,10 @@ const Sidebar = () => {
 
     return (
         <div className="fixed flex flex-col w-64 min-h-screen bg-white items-center">
-            <img src={Logo} alt="Inventory-Logo" className='mt-16' />
+            <div className="flex flex-row w-full justify-center items-center mt-16">
+                <img src={Logo} alt="header-logo" className="w-1/4" />
+                <h3 className="text-[black]  items-center text-2xl">InventoryHUB</h3>
+            </div>
             <ul className='mt-8'>
                 {navItems.map((item) => (
                     <li key={item.name} className="flex items-center py-2 px-4 hover:bg-gray-200 rounded-lg">
