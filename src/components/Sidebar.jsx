@@ -13,11 +13,11 @@ const Sidebar = () => {
     // Pairing navItems with their corresponding icons
     const navItems = [
         { name: "Dashboard", icon: <HomeIcon />, link: "/dashboard" },
-        { name: "User  Management", icon: <ManageAccountsIcon />, link: "/management" },
         { name: "Categories", icon: <CategoryIcon />, link: "/categories" },
         { name: "Products", icon: <ShoppingCartIcon />, link: "/products" },
         { name: "Sales", icon: <TrendingUpIcon />, link: "/sales" },
-        { name: "Sales Report", icon: <EmailIcon />, link: "/reports" }
+        { name: "Sales Report", icon: <EmailIcon />, link: "/reports" },
+        { name: "User  Management", icon: <ManageAccountsIcon />, link: "/management" }
     ];
 
     return (

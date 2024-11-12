@@ -5,7 +5,7 @@ const Sales = () => {
     <>
       <div className="home-page flex flex-row w-full min-h-screen">
         <Sidebar />
-        <div className="ml-64 w-full bg-[#6b10743d]">
+        <div className="ml-64 w-full bg-[#f4f4f4]">
           <h1>Sales</h1>
         </div>
       </div>
