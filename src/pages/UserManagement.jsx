@@ -1,14 +1,18 @@
 import React from 'react'
-import Sidebar from "../components/Sidebar"
+import { AuthProvider } from '../components/Auth'
+import SidebarWithRoleControl from '../components/SidebarWithRoleControl'
+
 const UserManagement = () => {
   return (
     <>
-      <div className="home-page flex flex-row w-full min-h-screen">
-        <Sidebar />
-        <div className="ml-64 w-full bg-[#f4f4f4]">
-          <h1>UserManagement</h1>
+      <AuthProvider>
+        <div className="home-page flex flex-row w-full min-h-screen">
+          <SidebarWithRoleControl /> {/* Use SidebarWithRoleControl instead of Sidebar */}
+          <div className="ml-64 w-full bg-[#f4f4f4]">
+            UserManagement
+          </div>
         </div>
-      </div>
+      </AuthProvider>
     </>
 
   )

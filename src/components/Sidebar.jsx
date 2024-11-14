@@ -8,17 +8,47 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import EmailIcon from '@mui/icons-material/Email';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { Settings } from '@mui/icons-material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ManagerSidebar from './sidebars/ManagerSidebar';
+import SalesSidebar from './sidebars/SalesSidebar';
+
+
+// Role-Based Access Control (Optional)
+const SidebarWithRoleControl = () => {
+    const { user } = useAuth();
+  
+    const renderSidebarBasedOnRole = () => {
+      switch(user.role) {
+        case 'Admin':
+          return <Sidebar/>;
+        case 'Sales Staff':
+          return <SalesSidebar />;
+        case 'Manager':
+          return <ManagerSidebar />;
+      }
+    };
+  
+    return renderSidebarBasedOnRole();
+  };
 
 const Sidebar = () => {
-    // Pairing navItems with their corresponding icons
+    
+    
     const navItems = [
         { name: "Dashboard", icon: <HomeIcon />, link: "/dashboard" },
-        { name: "Categories", icon: <CategoryIcon />, link: "/categories" },
-        { name: "Products", icon: <ShoppingCartIcon />, link: "/products" },
+        { name: "Inventory", icon: <CategoryIcon />, link: "/inventory" },
         { name: "Sales", icon: <TrendingUpIcon />, link: "/sales" },
+        { name: "Service", icon: <ShoppingCartIcon />, link: "/service" },
         { name: "Sales Report", icon: <EmailIcon />, link: "/reports" },
-        { name: "User  Management", icon: <ManageAccountsIcon />, link: "/management" }
+        { name: "Store Management", icon: <ManageAccountsIcon />, link: "/management" }
     ];
+
+    const profileItems = [
+        { name: "Profile", icon: <AccountCircleIcon />, link: "/profile" },
+        { name: "Settings", icon: <Settings />, link: "/settings" },
+        { name: "Logout", icon: <LogoutIcon />, link: "/" },
+    ]
 
     return (
         <div className="fixed flex flex-col w-64 min-h-screen bg-white items-center">
@@ -37,10 +67,16 @@ const Sidebar = () => {
                 ))}
             </ul>
             <div className="log-out fixed bottom-16">
-                <h3 className="cursor-pointer flex items-center">
-                    <span className='mr-2'><LogoutIcon /></span>
-                    Logout
-                </h3>
+                <ul className='mt-8'>
+                    {profileItems.map((item) => (
+                        <li key={item.name} className="flex items-start py-2 px-4 hover:bg-gray-200 rounded-lg">
+                            <Link to={item.link} className="flex items-center w-full">
+                                <span className="mr-2">{item.icon}</span>
+                                {item.name}
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
             </div>
         </div>
     );
