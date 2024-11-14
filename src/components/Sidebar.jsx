@@ -41,7 +41,7 @@ const Sidebar = () => {
         { name: "Sales", icon: <TrendingUpIcon />, link: "/sales" },
         { name: "Service", icon: <ShoppingCartIcon />, link: "/service" },
         { name: "Sales Report", icon: <EmailIcon />, link: "/reports" },
-        { name: "Store Management", icon: <ManageAccountsIcon />, link: "/management" }
+        { name: "User Management", icon: <ManageAccountsIcon />, link: "/management" }
     ];
 
     const profileItems = [

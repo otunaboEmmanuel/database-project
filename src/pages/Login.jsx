@@ -3,13 +3,16 @@ import Logo from "../assets/inventory-logo.svg";
 import PersonIcon from '@mui/icons-material/Person';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { TextField, InputAdornment, FormControl, InputLabel, OutlinedInput, IconButton } from "@mui/material";
+import { TextField, InputAdornment, FormControl, InputLabel, OutlinedInput, IconButton, Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import "../styles/main.css";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [open, setOpen] = useState(false); // State for modal
+    const [registerEmail, setRegisterEmail] = useState("");
+    const [registerPassword, setRegisterPassword] = useState("");
 
     const navItems = ["Home", "About", "Contact"];
 
@@ -42,6 +45,38 @@ const Login = () => {
         }
     };
 
+    const handleRegisterSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const res = await fetch("http://localhost:9001/project/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email: registerEmail, password: registerPassword }),
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                console.log(data);
+                setOpen(false); // Close the modal on successful registration
+            } else {
+                console.error("Registration failed:", res.statusText);
+            }
+        } catch (error) {
+            console.error("API link not working", error);
+        }
+    };
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     return (
         <>
             <div className="flex flex-col items-center gap-12 p-4 w-full min-h-screen bg-[#f4f4f4]">
@@ -57,7 +92,7 @@ const Login = () => {
                                 <li key={item} className="text-[black] hover:text-[darkgrey] text-xl cursor-pointer">{item}</li>
                             ))}
                         </ul>
-                        <button className="rounded bg-blue-700 text-xl hover:bg-[green] text-white py-1 px-3 border border-transparent transition-all focus:outline-none focus:ring-2">
+                        <button onClick={handleClickOpen} className="rounded bg-blue-700 text-xl hover:bg-[green] text-white py-1 px-3 border border-transparent transition-all focus:outline-none focus:ring-2">
                             Register
                         </button>
                     </div>
@@ -111,10 +146,51 @@ const Login = () => {
                             </button>
                             <h3 className="text-blue-900 hover:text-gray-600 cursor-pointer">Forgot Password?</h3>
                         </div>
-
                     </form>
                 </div>
             </div>
+
+            {/* Registration Modal */}
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>Register</DialogTitle>
+                <DialogContent>
+                    <form onSubmit={handleRegisterSubmit} className="flex flex-col gap-4">
+                        <TextField
+                            fullWidth
+                            variant="outlined"
+                            placeholder="Email"
+                            onChange={(event) => setRegisterEmail(event.target.value)}
+                        />
+                        <FormControl variant="outlined" fullWidth>
+                            <OutlinedInput
+                                id="outlined-adornment-register-password"
+                                placeholder="Password"
+                                onChange={(event) => setRegisterPassword(event.target.value)}
+                                type={showPassword ? 'text' : 'password'}
+                                startAdornment={
+                                    <InputAdornment position="start">
+                                        <IconButton
+                                            aria-label={showPassword ? 'Hide password' : 'Show password'}
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            edge="start">
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                            />
+                        </FormControl>
+                    </form>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={handleRegisterSubmit} color="primary">
+                        Submit
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </>
     );
 };
