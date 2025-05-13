@@ -8,4 +8,6 @@ public interface ScheduleService {
     Schedule addSchedule(Schedule schedule);
 
     List<Schedule> findAllSchedules();
+
+
 }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AdminServiceImp implements AdminService{
     @Autowired
@@ -18,5 +20,10 @@ public class AdminServiceImp implements AdminService{
         Admin admin1=adminRepository.findByEmail(admin.getEmail()).orElse(null);
         admin.setPassword(bcryptEncoder.encode(admin.getPassword()));
         return (admin1==null)?adminRepository.save(admin):null;
+    }
+
+    @Override
+    public List<Admin> getAllAdmin() {
+        return adminRepository.findAll();
     }
 }

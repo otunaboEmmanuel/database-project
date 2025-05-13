@@ -20,4 +20,6 @@ public class ScheduleServiceImp implements ScheduleService{
     public List<Schedule> findAllSchedules() {
         return scheduleRepository.findAll();
     }
+
+
 }

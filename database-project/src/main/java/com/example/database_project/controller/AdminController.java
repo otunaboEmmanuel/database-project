@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -39,23 +40,21 @@ public class AdminController {
     public ResponseEntity<?> LoginAdmin(@RequestBody LoginDto loginDto) {
         Admin login = adminRepository.findByEmail(loginDto.getEmail()).orElse(null);
         if (login != null) {
-            String password = loginDto.getPassword();
-            String encodedPassword = login.getPassword();
-            Boolean isPwdRight = passwordEncoder.matches(password, encodedPassword);
-            if (isPwdRight) {
+            String inputPassword = loginDto.getPassword();
+            String storedPassword = login.getPassword(); // Assuming this is stored as plain text
 
-                Optional<Admin> admin = adminRepository.findByEmailAndPassword(login.getEmail(), encodedPassword);
-                if (admin.isPresent()) {
-
-                    return new ResponseEntity<>(new Responses("00", "Login success"), HttpStatus.OK);
-                } else {
-                    return new ResponseEntity<>(new Responses("111", "login failed"), HttpStatus.OK);
-                }
+            if (inputPassword.equals(storedPassword)) {
+                return new ResponseEntity<>(new Responses("00", "Login success"), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(new Responses("111", "password doesn't match"), HttpStatus.OK);
+                return new ResponseEntity<>(new Responses("111", "Password doesn't match"), HttpStatus.OK);
             }
         } else {
             return new ResponseEntity<>(new Responses("111", "Email doesn't exist"), HttpStatus.OK);
         }
+    }
+
+    @GetMapping("/allAdmins")
+    public List<Admin> getAll(){
+        return adminService.getAllAdmin();
     }
 }

@@ -4,6 +4,7 @@ package com.example.database_project.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,6 +26,10 @@ public class Users {
     private String password;
     @Column(name = "email")
     private String email;
+    private String filepath;
+    private String name;
+    private String type;
+
 //    @OneToMany(mappedBy = "student")
 //    private List<Schedule> schedules;
 
